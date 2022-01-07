@@ -20,15 +20,33 @@ Module Program
 
             Dim ProgramName As String = My.Application.Info.AssemblyName
 
-            If CommandLine.StartsWith("""") AndAlso CommandLine.Contains(ProgramName & ".exe""") Then
+            ' the first part of the command line contains the program name; this needs to be removed 
+            ' complicating things, the program name may or may not
+            '   include a directory path,
+            '   be surrounded with quotes, and/or
+            '   have ".exe" at its end
 
-                ' the following code handles the case the user clicked the program from Window File Explorer
+            If CommandLine.StartsWith("""") AndAlso CommandLine.ToUpper.Contains(ProgramName.ToUpper) Then
 
-                CommandLine = "~ Please note ~ " & ProgramName & " should be run from the command line."
+                CommandLine = CommandLine.Remove(0, 1) ' remove the first quote
+
+                Dim IndexOfSecondQuote As Integer = CommandLine.IndexOf("""")
+
+                If IndexOfSecondQuote > 1 Then
+
+                    ' remove up to and including the second quote
+                    CommandLine = CommandLine.Remove(0, IndexOfSecondQuote + 1)
+
+                Else
+
+                    ' there is no second quote, so remove up to and including the program name
+                    CommandLine = CommandLine.Remove(0, CommandLine.IndexOf(ProgramName) + ProgramName.Length)
+
+                    If CommandLine.ToUpper.StartsWith(".EXE") Then CommandLine = CommandLine.Remove(0, 4)
+
+                End If
 
             ElseIf CommandLine.ToUpper.Contains(ProgramName.ToUpper) Then
-
-                ' the first part of the command line will contain the program name; this needs to be removed 
 
                 CommandLine = CommandLine.Remove(0, CommandLine.ToUpper.IndexOf(ProgramName.ToUpper) + ProgramName.Length)
 
@@ -153,7 +171,7 @@ Module Program
         End If
 
         Console.WriteLine("")
-        Console.WriteLine("NotifyOnDemand Help v1")
+        Console.WriteLine("NotifyOnDemand Help v1.1")
 
         Console.ForegroundColor = OriginalColour
         Console.WriteLine("")

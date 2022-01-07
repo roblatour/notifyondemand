@@ -3,6 +3,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>NotifyOnDemand</RootNamespace>
+	<AssemblyVersion>1.1.0.0</AssemblyVersion>
+	<AssemblyFileVersion>1.1.0.0</AssemblyFileVersion>
     <TargetFramework>net4.8</TargetFramework>
     <ApplicationIcon>misc\NotifyOnDemand.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
