@@ -23,14 +23,14 @@ Module Program
             If CommandLine.StartsWith("""") AndAlso CommandLine.Contains(ProgramName & ".exe""") Then
 
                 ' the following code handles the case the user clicked the program from Window File Explorer
-				
+
                 CommandLine = "~ Please note ~ " & ProgramName & " should be run from the command line."
 
-            ElseIf CommandLine.ToUpper.Contains(ProgramName.ToLower) Then
+            ElseIf CommandLine.ToUpper.Contains(ProgramName.ToUpper) Then
 
                 ' the first part of the command line will contain the program name; this needs to be removed 
 
-                CommandLine = CommandLine.Remove(0, CommandLine.ToUpper.IndexOf(ProgramName) + ProgramName.Length)
+                CommandLine = CommandLine.Remove(0, CommandLine.ToUpper.IndexOf(ProgramName.ToUpper) + ProgramName.Length)
 
                 If CommandLine.ToUpper.StartsWith(".EXE") Then CommandLine = CommandLine.Remove(0, 4)
 
