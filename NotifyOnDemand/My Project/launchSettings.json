@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "NotifyOnDemand": {
+      "commandName": "Project"
+    }
+  }
+}

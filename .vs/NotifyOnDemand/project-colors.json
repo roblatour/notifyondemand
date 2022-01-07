@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "07d23447-d2d3-4d6f-acb6-bd23a157bcaf": {
+      "ProjectGuid": "07d23447-d2d3-4d6f-acb6-bd23a157bcaf",
+      "DisplayName": "NotifyOnDemand",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
