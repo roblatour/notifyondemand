@@ -1,5 +1,5 @@
 ﻿# NotifyOnDemand
-A command line program for Windows to change and report on your computer's audio and recording levels.  Also, allows you to set your default audio and recording devices.
+A command line program for Windows to generate Windows notifications.
 
 Copyright © 2022, Rob Latour, Licensed under MIT
 
