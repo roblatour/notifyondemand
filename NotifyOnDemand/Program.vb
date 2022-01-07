@@ -4,22 +4,36 @@
 Imports CommunityToolkit.WinUI.Notifications
 
 Module Program
-
     Sub Main(args As String())
 
         Dim ReturnCode As Integer = 0
 
         Try
 
-            Dim CommandLine As String = Environment.CommandLine.ToString.Trim
+            Dim CommandLine As String
 
-            'the command line will start off with the program name; as it is of no use, get rid of it
+#If DEBUG Then
+            CommandLine = "~ this is a test ~ of a three line ~ notification"
+#Else
+            CommandLine = Environment.CommandLine.ToString.Trim
+#End If
 
-            Dim ProgramName As String = My.Application.Info.AssemblyName.ToUpper
+            Dim ProgramName As String = My.Application.Info.AssemblyName
 
-            If CommandLine.ToUpper.Contains(ProgramName) Then
+            If CommandLine.StartsWith("""") AndAlso CommandLine.Contains(ProgramName & ".exe""") Then
+
+                ' the following code handles the case the user clicked the program from Window File Explorer
+				
+                CommandLine = "~ Please note ~ " & ProgramName & " should be run from the command line."
+
+            ElseIf CommandLine.ToUpper.Contains(ProgramName.ToLower) Then
+
+                ' the first part of the command line will contain the program name; this needs to be removed 
+
                 CommandLine = CommandLine.Remove(0, CommandLine.ToUpper.IndexOf(ProgramName) + ProgramName.Length)
+
                 If CommandLine.ToUpper.StartsWith(".EXE") Then CommandLine = CommandLine.Remove(0, 4)
+
             End If
 
             CommandLine = CommandLine.Trim
@@ -29,6 +43,7 @@ Module Program
                 DisplayHelp()
 
             Else
+
 
                 ' seperate the command line into up to three lines, with each line being added into the notification
                 ' if more than three lines are found, ignore the extra lines
@@ -44,40 +59,46 @@ Module Program
 
                     Dim Lines() As String = CommandLine.Split(Seperator)
 
-                        Const MaxNotificationLinesThatCanBeAdded As Integer = 3
+                    Const MaxNotificationLinesThatCanBeAdded As Integer = 3
 
-                        Dim NotificationLine As String
-                        Dim NotificationLinesAdded As Integer = 0
+                    Dim NotificationLine As String
+                    Dim NotificationLinesAdded As Integer = 0
 
-                        Dim Toast = New ToastContentBuilder()
+                    Dim Toast = New ToastContentBuilder()
 
-                        For Each Line In Lines
+                    For Each Line In Lines
 
-                            NotificationLine = Line.Trim
+                        NotificationLine = Line.Trim
 
                         If NotificationLine.Length > 0 Then
 
-                                Toast.AddText(NotificationLine)
+                            Toast.AddText(NotificationLine)
 
-                                NotificationLinesAdded += 1
+                            NotificationLinesAdded += 1
 
-                                If NotificationLinesAdded = MaxNotificationLinesThatCanBeAdded Then
+                            If NotificationLinesAdded = MaxNotificationLinesThatCanBeAdded Then
 
-                                    Exit For
-
-                                End If
+                                Exit For
 
                             End If
 
-                        Next
+                        End If
 
-                        If NotificationLinesAdded > 0 Then
+                    Next
 
-                            Dim ToastTime As DateTime = Now
+                    If NotificationLinesAdded > 0 Then
 
-                            With ToastTime
-                                Toast.AddCustomTimeStamp(New DateTime(.Year, .Month, .Day, .Hour, .Minute, .Second, DateTimeKind.Local))
-                            End With
+                        Dim ToastTime As DateTime = Now
+
+                        With ToastTime
+                            Toast.AddCustomTimeStamp(New DateTime(.Year, .Month, .Day, .Hour, .Minute, .Second, DateTimeKind.Local))
+                        End With
+
+                        'the following suppresses the notification being added to the Windows Notification Center if the user clicks on the toast
+                        Toast.SetProtocolActivation(New Uri(My.Application.Info.DirectoryPath & "\dummy.txt"))
+
+                        ' alternatively you can have the progrm open a webpage if the user clicks on the notification, as follows:
+                        'Toast.SetProtocolActivation(New Uri("https://rlatour.com/notifyondemand"))
 
                         Toast.Show()
 
@@ -85,15 +106,15 @@ Module Program
 
                     Else
 
-                            Console.WriteLine("")
-                            Console.WriteLine("While there were seperators in the command line, there wasn't any text in between them display in the notification")
-                            Console.WriteLine("Notification not created")
-                            Console.WriteLine("")
-                            ReturnCode = 1
+                        Console.WriteLine("")
+                        Console.WriteLine("While there were seperators in the command line, there wasn't any text in between them display in the notification")
+                        Console.WriteLine("Notification not created")
+                        Console.WriteLine("")
+                        ReturnCode = 1
 
-                        End If
+                    End If
 
-                        Toast = Nothing
+                    Toast = Nothing
 
                 Else
 
