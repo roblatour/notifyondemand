@@ -11,3 +11,6 @@ The project is built upon the .net framework 4.8 and includes the following:
 
 ![components](https://github.com/roblatour/notifyondemand/blob/main/components.jpg)
 
+## Support
+
+[<img alt="buy me  a coffee" width="200px" src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" />](https://www.buymeacoffee.com/roblatour)
