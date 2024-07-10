@@ -1,7 +1,7 @@
 ﻿# NotifyOnDemand
 A command line program for Windows to generate Windows notifications.
 
-Copyright © 2022, Rob Latour, Licensed under MIT
+Copyright © 2022 - 2024, Rob Latour, Licensed under MIT
 
 A downloadable signed executable of the program is available from  [https://rlatour.com/notifyondemand](https://rlatour.com/notifyondemand/)
 
