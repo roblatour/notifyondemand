@@ -199,8 +199,8 @@ Module Program
         Console.WriteLine("   Examples: NotifyOnDemand ~ Backup job is now complete!")
         Console.WriteLine("             NotifyOnDemand ~ Backup job ~ is now complete!")
         Console.WriteLine("             NotifyOnDemand ~ Backup job ~ is now ~ complete!")
-        Console.WriteLine("             NotifyOnDemand ~ Click here~ to open the Google search site~https:\\google.com")
-        Console.WriteLine("             NotifyOnDemand ~ Click here~ to open the Google search site~in your default browser~https:\\google.com")
+        Console.WriteLine("             NotifyOnDemand ~ Click here ~ to open the Google search site ~ https:\\google.com")
+        Console.WriteLine("             NotifyOnDemand ~ Click here ~ to open the Google search site ~ in your default browser ~ https:\\google.com")
 
         Console.WriteLine("")
         Console.WriteLine("   Notes:    the first non-blank character in the command line is used as a line seperator")
