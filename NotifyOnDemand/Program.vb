@@ -1,6 +1,7 @@
-' Copyright Rob Latour, 2022
+' Copyright Rob Latour, 2022 - 2024
 ' https://rlatour.com/notifyondemand
 
+Imports System.Runtime.InteropServices
 Imports CommunityToolkit.WinUI.Notifications
 
 Module Program
@@ -77,24 +78,41 @@ Module Program
 
                     Dim Lines() As String = CommandLine.Split(Seperator)
 
-                    Const MaxNotificationLinesThatCanBeAdded As Integer = 3
+                    Const MaxParameters As Integer = 4
+                    Const MaxNotificationLines As Integer = MaxParameters - 1
 
-                    Dim NotificationLine As String
-                    Dim NotificationLinesAdded As Integer = 0
+                    Dim LinesProcessed As Integer = 0
+                    Dim NotificationLinesProcessed As Integer = 0
+                    Dim TooManyNotificationLines As Boolean = False
+
+                    Dim WorkingLine As String
+
+                    Dim WebSite As String = String.Empty
 
                     Dim Toast = New ToastContentBuilder()
 
                     For Each Line In Lines
 
-                        NotificationLine = Line.Trim
+                        WorkingLine = Line.Trim
 
-                        If NotificationLine.Length > 0 Then
+                        If WorkingLine.Length > 0 Then
 
-                            Toast.AddText(NotificationLine)
+                            If WorkingLine.ToUpper.StartsWith("HTTP") Then
+                                WebSite = WorkingLine
+                            Else
+                                If (NotificationLinesProcessed < MaxNotificationLines) Then
+                                    Toast.AddText(WorkingLine)
+                                    NotificationLinesProcessed += 1
+                                Else
+                                    TooManyNotificationLines = True
+                                    Exit For
+                                End If
 
-                            NotificationLinesAdded += 1
+                            End If
 
-                            If NotificationLinesAdded = MaxNotificationLinesThatCanBeAdded Then
+                            LinesProcessed += 1
+
+                            If (LinesProcessed > MaxParameters) Then
 
                                 Exit For
 
@@ -104,7 +122,23 @@ Module Program
 
                     Next
 
-                    If NotificationLinesAdded > 0 Then
+                    If TooManyNotificationLines Then
+
+                        Console.WriteLine("")
+                        Console.WriteLine("There were too many lines to display in the notification")
+                        Console.WriteLine("Notification not created")
+                        Console.WriteLine("")
+                        ReturnCode = 1
+
+                    ElseIf (NotificationLinesProcessed = 0) Then
+
+                        Console.WriteLine("")
+                        Console.WriteLine("There wasn't any text to display in the notification")
+                        Console.WriteLine("Notification not created")
+                        Console.WriteLine("")
+                        ReturnCode = 1
+
+                    Else
 
                         Dim ToastTime As DateTime = Now
 
@@ -115,37 +149,22 @@ Module Program
                         'the following suppresses the notification being added to the Windows Notification Center if the user clicks on the toast
                         Toast.SetProtocolActivation(New Uri(My.Application.Info.DirectoryPath & "\dummy.txt"))
 
-                        ' alternatively you can have the progrm open a webpage if the user clicks on the notification, as follows:
-                        'Toast.SetProtocolActivation(New Uri("https://rlatour.com/notifyondemand"))
+                        If WebSite > String.Empty Then
+                            Toast.SetProtocolActivation(New Uri(WebSite))
+                        End If
 
                         Toast.Show()
 
                         Threading.Thread.Sleep(100)
 
-                    Else
-
-                        Console.WriteLine("")
-                        Console.WriteLine("While there were seperators in the command line, there wasn't any text in between them display in the notification")
-                        Console.WriteLine("Notification not created")
-                        Console.WriteLine("")
-                        ReturnCode = 1
-
                     End If
 
+
                     Toast = Nothing
-
-                Else
-
-                    Console.WriteLine("")
-                    Console.WriteLine("While there was a seperator in the command line, there was nothing else to display in the notification")
-                    Console.WriteLine("Notification not created")
-                    Console.WriteLine("")
-                    ReturnCode = 1
 
                 End If
 
             End If
-
 
         Catch ex As Exception
 
@@ -171,19 +190,26 @@ Module Program
         End If
 
         Console.WriteLine("")
-        Console.WriteLine("NotifyOnDemand Help v1.1")
+        Console.WriteLine("NotifyOnDemand Help v1.2")
 
         Console.ForegroundColor = OriginalColour
         Console.WriteLine("")
-        Console.WriteLine("   Usage:    NotifyOnDemand(.exe) ~ Line1 (~ Line 2) (~ Line 3)")
+        Console.WriteLine("   Usage:    NotifyOnDemand(.exe) ~ Line1 (~ Line 2) (~ Line 3) (~website)")
         Console.WriteLine("")
         Console.WriteLine("   Examples: NotifyOnDemand ~ Backup job is now complete!")
         Console.WriteLine("             NotifyOnDemand ~ Backup job ~ is now complete!")
         Console.WriteLine("             NotifyOnDemand ~ Backup job ~ is now ~ complete!")
+        Console.WriteLine("             NotifyOnDemand ~ Click here~ to open the Google search site~https:\\google.com")
+        Console.WriteLine("             NotifyOnDemand ~ Click here~ to open the Google search site~in your default browser~https:\\google.com")
 
         Console.WriteLine("")
-        Console.WriteLine("   Note:     the first non-blank character in the command line is used as a line seperator")
-        Console.WriteLine("             allowing the notification to display up to three seperate lines")
+        Console.WriteLine("   Notes:    the first non-blank character in the command line is used as a line seperator")
+        Console.WriteLine("             the notification may display up to three seperate lines")
+        Console.WriteLine("             an optional webSite may be added as a final parameter")
+        Console.WriteLine("             if used, the website must start with http")
+        Console.WriteLine("             if the user clicks on the notification, the website will be opened in the default browser")
+        Console.WriteLine("             if the user clicks on the notification's close button ('X') the website will not be opened")
+
         Console.WriteLine("")
 
         If Console.BackgroundColor = ConsoleColor.White Then
@@ -192,7 +218,7 @@ Module Program
             Console.ForegroundColor = ConsoleColor.White
         End If
 
-        Console.WriteLine("Copyright Rob Latour, 2022")
+        Console.WriteLine("Copyright Rob Latour, 2022 - 2024")
         Console.WriteLine("https://rlatour.com/notifyondemand")
 
         Console.ForegroundColor = OriginalColour

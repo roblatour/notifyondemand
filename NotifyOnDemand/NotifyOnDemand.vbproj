@@ -3,15 +3,15 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>NotifyOnDemand</RootNamespace>
-	<AssemblyVersion>1.1.0.0</AssemblyVersion>
-	<AssemblyFileVersion>1.1.0.0</AssemblyFileVersion>
+	<AssemblyVersion>1.2.0.0</AssemblyVersion>
+	<AssemblyFileVersion>1.2.0.0</AssemblyFileVersion>
     <TargetFramework>net4.8</TargetFramework>
     <ApplicationIcon>misc\NotifyOnDemand.ico</ApplicationIcon>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <StartupObject>Sub Main</StartupObject>
     <Authors>Rob Latour</Authors>
     <Description>generate Windows notifications from the command line</Description>
-    <Copyright>Copyright Rob Latour, 2022</Copyright>
+    <Copyright>Copyright Rob Latour, 2022 - 2024</Copyright>
     <PackageProjectUrl>https://rlatour.com/notifyondemand</PackageProjectUrl>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
