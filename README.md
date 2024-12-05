@@ -7,7 +7,7 @@ You are welcome to download and use it for free on as many computers as you woul
 
 Notify On Demand is licensed under the [MIT license](https://github.com/roblatour/notifyondemand/blob/main/LICENSE).
 
-To download a copy, please click [here](https://6ec1f0a2f74d4d0c2019-591364a760543a57f40bab2c37672676.ssl.cf5.rackcdn.com/NotifyOnDemand.zip).
+To download a zipped signed Windows install program for Notify On Demand, please click [here](https://6ec1f0a2f74d4d0c2019-591364a760543a57f40bab2c37672676.ssl.cf5.rackcdn.com/NotifyOnDemand.zip).
 
 ## Setup
 
