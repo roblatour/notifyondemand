@@ -1,16 +1,42 @@
-﻿# NotifyOnDemand
-A command line program for Windows to generate Windows notifications.
+# Notify On Demand 
+## v1.3 released December 5, 2024
 
-Copyright © 2022 - 2024, Rob Latour, Licensed under MIT
+Notify On Demand is a free open source command line utility which lets you generate Windows 'toast' notifications.
 
-A downloadable signed executable of the program is available from  [https://rlatour.com/notifyondemand](https://rlatour.com/notifyondemand/)
+You are welcome to download and use it for free on as many computers as you would like.
 
-For more informaiton please visit  [https://rlatour.com/notifyondemand](https://rlatour.com/notifyondemand/)
+Notify On Demand is licensed under the [MIT license](https://github.com/roblatour/notifyondemand/blob/main/LICENSE).
+
+To download a copy, please click [here](https://6ec1f0a2f74d4d0c2019-591364a760543a57f40bab2c37672676.ssl.cf5.rackcdn.com/NotifyOnDemand.zip).
+
+## Setup
+
+Notify On Demand does not need to be installed, rather just unzip it from the download file (above) and run it.
+
+## Using Notify On Demand
+
+From the command prompt just type "NotifyOnDemand" (without the quotes) to see the help (as shown below).
+
+|     |     |
+| --- | --- |
+| **Notify On Demand Help screen:** |     |
+|     | ![Notify On Demand screenshot](/images/screenshot.jpg) |
+| **Example usage:** |     |
+|     | ![Notify On Demand example usage](/images/example.jpg) |
+
+**A brief video:**
+
+Just [click here](https://www.youtube.com/watch?v=3HlqEJvxGvQ) to see a brief video of the program in action!
 
 The project is built upon the .net framework 4.8 and includes the following:
 
-![components](https://github.com/roblatour/notifyondemand/blob/main/components.jpg)
+![components](/images/components.jpg)
+ 
+* * *
+ ## Support Notify On Demand
 
-## Support
-
+ To help support Push2Run, or to just say thanks, you're welcome to 'buy me a coffee'<br><br>
 [<img alt="buy me  a coffee" width="200px" src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" />](https://www.buymeacoffee.com/roblatour)
+* * *
+Copyright © 2018 - 2024 Rob Latour
+* * *

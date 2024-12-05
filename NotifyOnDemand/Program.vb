@@ -1,5 +1,5 @@
 ' Copyright Rob Latour, 2022 - 2024
-' https://rlatour.com/notifyondemand
+' https://github.com/roblatour/notifyondemand
 
 Imports System.Runtime.InteropServices
 Imports CommunityToolkit.WinUI.Notifications
@@ -190,7 +190,7 @@ Module Program
         End If
 
         Console.WriteLine("")
-        Console.WriteLine("NotifyOnDemand Help v1.2")
+        Console.WriteLine("NotifyOnDemand Help v1.3")
 
         Console.ForegroundColor = OriginalColour
         Console.WriteLine("")
@@ -219,7 +219,7 @@ Module Program
         End If
 
         Console.WriteLine("Copyright Rob Latour, 2022 - 2024")
-        Console.WriteLine("https://rlatour.com/notifyondemand")
+        Console.WriteLine("https://github.com/roblatour/notifyondemand")
 
         Console.ForegroundColor = OriginalColour
 
